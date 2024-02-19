@@ -12,8 +12,8 @@ void Timer_2_Init()
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStruct;
 	TIM_TimeBaseInitStruct.TIM_ClockDivision = TIM_CKD_DIV1;
 	TIM_TimeBaseInitStruct.TIM_CounterMode = TIM_CounterMode_Up;
-	TIM_TimeBaseInitStruct.TIM_Period = 10000 - 1;//72m/10000 = 72
-	TIM_TimeBaseInitStruct.TIM_Prescaler = 7200 - 1;//72k/7200 = 1s
+	TIM_TimeBaseInitStruct.TIM_Period = 10000 - 1;//10k/10000 = 1s
+	TIM_TimeBaseInitStruct.TIM_Prescaler = 7200 - 1;//72m/7200 = 10k
 	TIM_TimeBaseInitStruct.TIM_RepetitionCounter = 0;//只有高级定时器有这个
 	TIM_TimeBaseInit(TIM2,&TIM_TimeBaseInitStruct);
 	TIM_ClearFlag(TIM2,TIM_FLAG_Update);//TIM_TimeBaseInit()默认出发更新终中断和更新事件，
