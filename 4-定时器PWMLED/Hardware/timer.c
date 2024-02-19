@@ -5,14 +5,11 @@ void Timer_2_Init()
 {
 	//开启定时器时钟
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2,ENABLE);
-	
-	//为TIM2选择内部时钟
-	TIM_InternalClockConfig(TIM2);
 	//TIM_TimeBaseInit()
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStruct;
 	TIM_TimeBaseInitStruct.TIM_ClockDivision = TIM_CKD_DIV1;
 	TIM_TimeBaseInitStruct.TIM_CounterMode = TIM_CounterMode_Up;
-	TIM_TimeBaseInitStruct.TIM_Period = 10000 - 1;//72m/10000 = 72
+	TIM_TimeBaseInitStruct.TIM_Period = 10000 - 1;//72m/10000 = 72k
 	TIM_TimeBaseInitStruct.TIM_Prescaler = 7200 - 1;//72k/7200 = 1s
 	TIM_TimeBaseInitStruct.TIM_RepetitionCounter = 0;//只有高级定时器有这个
 	TIM_TimeBaseInit(TIM2,&TIM_TimeBaseInitStruct);
