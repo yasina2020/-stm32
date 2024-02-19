@@ -5,9 +5,9 @@
 int main()
 {
   
-  PWM_LED_Init();
-  while (1) {
-    Led_breath();
-  }
+	PWM_LED_Init();
+	while (1) {
+		Led_breath();
+	}
 }
 
