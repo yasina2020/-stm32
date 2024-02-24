@@ -5,5 +5,8 @@
 
 void AD_Init();
 uint16_t AD_GetValue();
-float AD_GetVolite();
+
+void AD_Init_CHS();
+uint16_t AD_GetValue_CHS(uint8_t ADC_Channel);
+
 #endif
