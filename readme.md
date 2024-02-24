@@ -10,3 +10,7 @@ OC（output compare）输出比较
 ![image-20240221131932276](readme.assets/image-20240221131932276.png)
 
 ![image-20240221132043710](readme.assets/image-20240221132043710.png)
+
+
+
+7.1 ADC
