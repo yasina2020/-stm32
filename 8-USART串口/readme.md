@@ -42,5 +42,23 @@ PS：**低位先行**：如发送0x65，即0110 0101   则从低位依次发送1
 
 ![image-20240226135350389](readme.assets/image-20240226135350389.png)
 
+### USART使用
 
+1.  RCC开启GPIO、USART时钟
+2.  GPIO设置（TX-复用推挽输出、RX-上拉输入\浮空输入）
+3.  USART设置：波特率、数据位宽、停止位、校验位、硬件流控、模式
+4.  开启USART中断（如接收可开启USART_IT_RXNE）
+5.  中断NVIC设置
+6.  使能USART
+7.  USART_SendData发送、USART_ReceiveData接收
+8.  如需接收，要设置接受中断服务函数
 
+**标志位信息**
+
+USART_IT_RXNE：接收中断标志位，该位为SET标志可以接收
+
+USART_FLAG_TXE：发送标志位，该位为SET，表示发送完毕，可以写入下一个数据
+
+### 串口数据包
+
+![image-20240227133355538](readme.assets/image-20240227133355538.png)![image-20240227133419007](readme.assets/image-20240227133419007.png)

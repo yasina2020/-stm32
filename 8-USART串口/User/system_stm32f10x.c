@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * @file    system_stm32f10x.c
+  * @file    GPIO/IOToggle/system_stm32f10x.c
   * @author  MCD Application Team
-  * @version V3.6.0
-  * @date    20-September-2021
+  * @version V3.5.0
+  * @date    08-April-2011
   * @brief   CMSIS Cortex-M3 Device Peripheral Access Layer System Source File.
   * 
   * 1.  This file provides two functions and one global variable to be called from 
@@ -39,13 +39,14 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2011 STMicroelectronics.
-  * All rights reserved.
+  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
+  * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
   ******************************************************************************
   */
 
@@ -491,7 +492,7 @@ void SystemInit_ExtMemCtl(void)
 #ifdef SYSCLK_FREQ_HSE
 /**
   * @brief  Selects HSE as System clock source and configure HCLK, PCLK2
-  *         and PCLK1 prescalers.
+  *          and PCLK1 prescalers.
   * @note   This function should be used only after reset.
   * @param  None
   * @retval None
@@ -570,7 +571,7 @@ static void SetSysClockToHSE(void)
 #elif defined SYSCLK_FREQ_24MHz
 /**
   * @brief  Sets System clock frequency to 24MHz and configure HCLK, PCLK2 
-  *         and PCLK1 prescalers.
+  *          and PCLK1 prescalers.
   * @note   This function should be used only after reset.
   * @param  None
   * @retval None
@@ -674,7 +675,7 @@ static void SetSysClockTo24(void)
 #elif defined SYSCLK_FREQ_36MHz
 /**
   * @brief  Sets System clock frequency to 36MHz and configure HCLK, PCLK2 
-  *         and PCLK1 prescalers. 
+  *          and PCLK1 prescalers. 
   * @note   This function should be used only after reset.
   * @param  None
   * @retval None
@@ -775,7 +776,7 @@ static void SetSysClockTo36(void)
 #elif defined SYSCLK_FREQ_48MHz
 /**
   * @brief  Sets System clock frequency to 48MHz and configure HCLK, PCLK2 
-  *         and PCLK1 prescalers. 
+  *          and PCLK1 prescalers. 
   * @note   This function should be used only after reset.
   * @param  None
   * @retval None
@@ -876,7 +877,7 @@ static void SetSysClockTo48(void)
 #elif defined SYSCLK_FREQ_56MHz
 /**
   * @brief  Sets System clock frequency to 56MHz and configure HCLK, PCLK2 
-  *         and PCLK1 prescalers. 
+  *          and PCLK1 prescalers. 
   * @note   This function should be used only after reset.
   * @param  None
   * @retval None
@@ -978,7 +979,7 @@ static void SetSysClockTo56(void)
 #elif defined SYSCLK_FREQ_72MHz
 /**
   * @brief  Sets System clock frequency to 72MHz and configure HCLK, PCLK2 
-  *         and PCLK1 prescalers. 
+  *          and PCLK1 prescalers. 
   * @note   This function should be used only after reset.
   * @param  None
   * @retval None
@@ -1090,3 +1091,4 @@ static void SetSysClockTo72(void)
 /**
   * @}
   */    
+/******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
