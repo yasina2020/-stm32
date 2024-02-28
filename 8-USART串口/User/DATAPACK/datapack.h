@@ -20,5 +20,9 @@ key按下发送数据包 发送四个字节
 
 void Send_Hex_Pack(char *str);
 void Rev_Hex_Pack();
+int Get_Data_Rev_state();
 
+
+void Rev_Str_Pack();
+void Ctr_LED_Str();
 #endif

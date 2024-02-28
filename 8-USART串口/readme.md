@@ -62,3 +62,7 @@ USART_FLAG_TXE：发送标志位，该位为SET，表示发送完毕，可以写
 ### 串口数据包
 
 ![image-20240227133355538](readme.assets/image-20240227133355538.png)![image-20240227133419007](readme.assets/image-20240227133419007.png)
+
+**现象**
+
+![image-20240228121308135](readme.assets/image-20240228121308135.png)

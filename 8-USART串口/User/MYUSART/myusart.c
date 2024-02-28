@@ -83,7 +83,10 @@ void USART1_IRQHandler()
         Rev_flag = 1;
         // read dr
         USART1_RevData = USART_ReceiveData(USART1);
-        Rev_Hex_Pack();
+        // -------这里的HEX和STR模式不能共存，因为都在一个中断函数中----------------------
+        // Rev_Hex_Pack();//
+        Rev_Str_Pack();
+	    // -------…^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-----------------------
 	    USART_ClearITPendingBit(USART1, USART_IT_RXNE);
 	}
 }

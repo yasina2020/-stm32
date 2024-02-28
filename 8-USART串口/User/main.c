@@ -32,8 +32,8 @@ void Test_Usart1()
     USART1_SendSrting(str);
 }
 
-extern char Rev_Pack[4];
-
+extern u8 Rev_Pack[4];
+extern char Rev_Str_Data[100];
 
 void Test_Hex_Pack()
 {
@@ -50,18 +50,27 @@ int main()
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//NVIC分组
     USART1_Init(115200);
     OLED_Init();
+    LED_Init();
 
     Test_Usart1();
     Test_Hex_Pack();
     while(1)
     {
         // OLED_ShowNum(0, 0, USART1_GetRev(), 2, 12);
-        OLED_ShowChar(0, 0, Rev_Pack[0], 12);
-        OLED_ShowChar(6, 1, Rev_Pack[1], 12);
-        OLED_ShowChar(12, 2, Rev_Pack[2], 12);
-        OLED_ShowChar(18, 3, Rev_Pack[3], 12);
+        //---------------HEX模式收，显示在OLED上---------------------------
+        // if(Get_Data_Rev_state() == 1)
+        // {
+        //     OLED_ShowChar(0, 0, Rev_Pack[0], 12);
+        //     OLED_ShowChar(6, 0, Rev_Pack[1], 12);
+        //     OLED_ShowChar(12, 0, Rev_Pack[2], 12);
+        //     OLED_ShowChar(18, 0, Rev_Pack[3], 12);
 
-
-      
+        // }
+        // -----------SRT模式收，控制LED亮灭------------------------------------
+        if (Get_Data_Rev_state() == 1) {
+            Ctr_LED_Str();
+            OLED_ShowString(0, 0, Rev_Str_Data, 12);
+        }
+        OLED_ShowString(0, 2, Rev_Str_Data, 12);  
     }
 }
