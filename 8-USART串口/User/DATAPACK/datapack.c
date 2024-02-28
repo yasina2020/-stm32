@@ -17,10 +17,17 @@ char Rev_Pack[4];
 
 void Send_Hex_Pack(char *str)
 {
-    char send_str[10];
-    // 封装包头尾发送出去
-    sprintf(send_str,"0xFF%s0xFE",str);
-    USART1_SendSrting(send_str);
+    
+    // char send_str[6] = {0xff,0x0,0x0,0x0,0x0,0xFE};
+
+    // // 封装包头尾发送出去
+    // 第一种方案会将所有数据当做字符而不是hex
+    // sprintf(send_str+1,"0xff%s0xfe",str);
+    // USART1_SendSrting(send_str);
+    
+    USART1_SendData(0xFF);
+    USART1_SendArray(str,sizeof(str)/sizeof(str[0]));
+    USART1_SendData(0xFE);
 }
 
 
