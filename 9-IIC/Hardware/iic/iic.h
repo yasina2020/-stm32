@@ -33,4 +33,22 @@ void My_IIC_SendACK(uint8_t ACK);
 // 接收应答
 uint8_t My_IIC_RevACK();
 
+
+
+
+
+
+
+
+// ----------------------------------------------------------------------
+uint8_t iic_h_r(uint8_t device_id,uint8_t regaddr);
+void iic_h_w(uint8_t device_id,uint8_t regaddr,uint8_t data);
+void wait_iic_event(I2C_TypeDef* I2Cx, uint32_t I2C_EVENT);
+void iic_h_init();
+
+
+
+
+
+
 #endif
