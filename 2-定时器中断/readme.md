@@ -19,8 +19,8 @@ TIM_TimeBaseInitStruct.TIM_RepetitionCounter = 0;//只有高级定时器有这�
 TIM_TimeBaseInit(TIM2,&TIM_TimeBaseInitStruct);
 TIM_ClearFlag(TIM2,TIM_FLAG_Update);
 ```
-TIM_Prescaler这是定时器的预分频值。它用来减慢定时器的时钟频率，从而使定时器的计数速度变慢。这里设置成7200，本来stm32f103c8是72mHZ，就是72m次跳变会在一秒内完成，通过分频使其在10k完成。
+`TIM_Prescaler`这是定时器的预分频值。它用来减慢定时器的时钟频率，从而使定时器的计数速度变慢。这里设置成7200，本来stm32f10x是72MHz，就是一秒跳变72M次，通过分频使其在10k完成。
 
-TIM_Period这是定时器的周期值。它决定了定时器溢出（从计数器值归零）的时间间隔。预分频后10k次计数是1s，这里令其技术到（10000-1），正好是1s。
+`TIM_Period`这是定时器的周期值。它决定了定时器溢出（从计数器值归零）的时间间隔。预分频后10k次计数是1s，这里令其技术到（10000-1），正好是1s。
 
 这样就完成了1s的定时
