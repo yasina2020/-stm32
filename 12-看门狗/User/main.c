@@ -1,64 +1,87 @@
-/**
-  ******************************************************************************
-  * @ åç§°  STM32 å­¦ä¹ æ¨¡æ¿
-  * @ ç‰ˆæœ¬  STD åº“ V3.5.0
-  * @ æè¿°  é€‚ç”¨äºåµŒå…¥å¼è™šæ‹Ÿä»¿çœŸå¹³å°
-  *         
-  * @ æ³¨æ„  æœ¬ç¨‹åºåªä¾›å­¦ä¹ ä½¿ç”¨
-  ******************************************************************************
-  */
+#include "stm32f10x.h"                  // Device header
 
 
-#include "MyRTC.h"
-#include "sys.h"
-#include "stm32f10x_conf.h"
-#include "delay.h"
-#include "iic_oled.h"
-#include "bkp.h"
-#include <time.h>
 
-void test_bkp()
+
+//IWDG
+void iwdg_foo()
 {
-  bkp_init();
-  bkp_write(BKP_DR1, 1234);
-  uint16_t data = bkp_read(BKP_DR1);
-  OLED_ShowNum(0, 0, data, 4, 12);
+	//ÅĞ¶Ï¸´Î»À´Ô´
+	if(RCC_GetFlagStatus(RCC_FLAG_IWDGRST)==SET)
+	{
+		//TODO IWDG RESET	
+	}else
+	{
+		//Õı³£¸´Î»
+	}
+	
+		/*IWDG³õÊ¼»¯*/
+	IWDG_WriteAccessCmd(IWDG_WriteAccess_Enable);	//¶ÀÁ¢¿´ÃÅ¹·Ğ´Ê¹ÄÜ£¬½â³ı±£»¤
+	//LSI = 40K£¬
+	/*
+	
+	³¬Ê±Ê±¼ä¹«Ê½£ºTi = Tlsi X PRÔ¤·ÖÆµÏµÊı X (RL + 1)
+	ÏëÉèÖÃ³¬Ê±Ê±¼ä1000ms£¬²é±íµÄPRĞèÒªÉèÖÃÎª16·ÖÆµ     IWDG_SetPrescaler(IWDG_Prescaler_16);
+	Tlsi = 1/40 µ¥Î»ÊÇms
+	¹ÊµÃ³öPL = 2499     IWDG_SetReload(2500 - 1)
+	
+	*/
+	IWDG_SetPrescaler(IWDG_Prescaler_16);			//ÉèÖÃÔ¤·ÖÆµÎª16
+	IWDG_SetReload(2500 - 1);							//ÉèÖÃÖØ×°ÖµÎª2499£¬¶ÀÁ¢¿´ÃÅ¹·µÄ³¬Ê±Ê±¼äÎª1000ms
+	IWDG_ReloadCounter();							//ÖØ×°¼ÆÊıÆ÷£¬Î¹¹·
+	IWDG_Enable();									//¶ÀÁ¢¿´ÃÅ¹·Ê¹ÄÜ
+	
+	while(1)
+	{
+		//Î¹¹·
+		IWDG_ReloadCounter();						//ÖØ×°¼ÆÊıÆ÷£¬Î¹¹·
+	}
 }
 
-void test_rtc()
+//WWDG
+void wwdg_foo()
 {
-  my_rtc_init();
-  OLED_ShowNum(0, 0, rtc_read(), 10, 12);
+	//ÅĞ¶Ï¸´Î»À´Ô´
+	if(RCC_GetFlagStatus(RCC_FLAG_WWDGRST)==SET)
+	{
+	//TODO WWDG RESET	
+	}else
+	{
+	//Õı³£¸´Î»
+	}
+	
+	/*¿ªÆôÊ±ÖÓ*/
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_WWDG, ENABLE);	//¿ªÆôWWDGµÄÊ±ÖÓ
+	
+	/*WWDG³õÊ¼»¯*/
+	//APB1 36MHz  
+	/*
+	ÏëÉèÖÃ³¬Ê±Ê±¼ä50ms£¬¿´±íµÃ³öWDGTB=3    WWDG_SetPrescaler(WWDG_Prescaler_8);
+	
+	³¬Ê±Ê±¼ä¹«Ê½£ºTw = Tplck1 X 4096 X 2^WDGTB X (T[5:0] + 1)
+	Tw:50ms
+	Tplck1:1/36k(ÕâÀïÒÔºÁÃëÎªµ¥Î»)
+	WDGTB:3
+	µÃ³öT[5:0] = 54     WWDG_Enable(0x40 | 54);
+	
+	´°¿Ú³¬Ê±¹«Ê½£ºTw = Tplck1 X 4096 X 2^WDGTB X (T[5:0] -W[5:0])
+	ÏëÉèÖÃ´°¿ÚÊ±¼ä30ms
+	µÃ³öW[5:0] = 21     WWDG_SetWindowValue(0x40 | 21);
+	*/
+	WWDG_SetPrescaler(WWDG_Prescaler_8);			//ÉèÖÃÔ¤·ÖÆµÎª8
+	WWDG_SetWindowValue(0x40 | 21);					//ÉèÖÃ´°¿ÚÖµ£¬´°¿ÚÊ±¼äÎª30ms
+	WWDG_Enable(0x40 | 54);							//Ê¹ÄÜ²¢µÚÒ»´ÎÎ¹¹·£¬³¬Ê±Ê±¼äÎª50ms
+	
+	while(1)
+	{
+		//Î¹¹·
+		WWDG_SetCounter(0x40 | 54);					//ÖØ×°¼ÆÊıÆ÷£¬Î¹¹·
+	}
 }
 
 int main()
 {
-  OLED_Init();
+	void wwdg_foo();
+	//void iwdg_foo();
 
-  // test_bkp();
-  my_rtc_init();
-  
-  struct tm time_data;
-  time_data.tm_year = 2024;
-  time_data.tm_mon = 3;
-  time_data.tm_mday = 1;
-  time_data.tm_hour = 13;
-  time_data.tm_min = 56;
-  time_data.tm_sec = 34;
-  rtc_settime(&time_data);
-
-  while(1)
-  {
-    OLED_ShowNum(0, 0, rtc_read(), 10, 12);
-
-    struct tm now_time;
-    now_time = rtc_readtime();
-    OLED_ShowNum(0, 1, now_time.tm_year, 4, 12);
-    OLED_ShowNum(24, 1, now_time.tm_mon, 2, 12);
-    OLED_ShowNum(37, 1, now_time.tm_mday, 2, 12);
-    OLED_ShowNum(52, 1, now_time.tm_hour, 2, 12);
-    OLED_ShowNum(67, 1, now_time.tm_min, 2, 12);
-    OLED_ShowNum(81, 1, now_time.tm_sec, 2, 12);
-    
-  }
 }

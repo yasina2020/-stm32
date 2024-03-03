@@ -1,6 +1,6 @@
 ## BKP
 
-时钟初始化
+**时钟初始化**
 
 `RCC_APB1Periph_PWR`和`RCC_APB1Periph_BKP`需要一起开
 

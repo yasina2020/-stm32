@@ -30,7 +30,7 @@ void test_rtc()
   my_rtc_init();
   OLED_ShowNum(0, 0, rtc_read(), 10, 12);
 }
-
+// 阿拉斯加搭理你收到啦没打码阿妈
 int main()
 {
   OLED_Init();
