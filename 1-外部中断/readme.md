@@ -17,7 +17,7 @@ STM32中，支持68个可屏蔽中断通道，包括如下：
 
 ![image-20240304101605973](readme.assets/image-20240304101605973.png)
 
-本节考虑仅考虑，EXTI0...EXTI4、EXTI9_5、EXTI15_10。
+本节考虑仅考虑，EXTI0...EXTI4、EXTI9_5、EXTI15_10。-
 
 ![image-20240304101736988](readme.assets/image-20240304101736988.png)
 

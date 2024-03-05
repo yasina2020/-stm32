@@ -7,12 +7,12 @@
 #include "stm32f10x_tim.h"
 #include <stdint.h>
 
-
+//PA6 --- TIM3 CH1
 void IC_Init()
 {
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_AFIO, ENABLE); 
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE); 
     GPIO_InitTypeDef GPIO_InitStruct;
-    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IPU;
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN_FLOATING;
     GPIO_InitStruct.GPIO_Pin = GPIO_Pin_6;
     GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -44,9 +44,9 @@ void IC_Init()
 
 void IC_PWMI_Init()
 {
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_AFIO, ENABLE); 
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE); 
     GPIO_InitTypeDef GPIO_InitStruct;
-    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IPU;
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN_FLOATING;
     GPIO_InitStruct.GPIO_Pin = GPIO_Pin_6;
     GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -56,7 +56,7 @@ void IC_PWMI_Init()
     TIM_TimeBaseInitStruct.TIM_ClockDivision = TIM_CKD_DIV1;
     TIM_TimeBaseInitStruct.TIM_CounterMode = TIM_CounterMode_Up;
     TIM_TimeBaseInitStruct.TIM_RepetitionCounter = 0;
-    TIM_TimeBaseInitStruct.TIM_Period = 0xFF;
+    TIM_TimeBaseInitStruct.TIM_Period =65535-1;
     TIM_TimeBaseInitStruct.TIM_Prescaler = 72-1;
     TIM_TimeBaseInit(TIM3,&TIM_TimeBaseInitStruct);
 
