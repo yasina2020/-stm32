@@ -175,7 +175,9 @@ uint32_t IC_GetDuty(void)
 }
  ```
 
-​    
+##  3、 编码器
+
+
 
 
 
