@@ -59,6 +59,56 @@ USART_IT_RXNE：接收中断标志位，该位为SET标志可以接收
 
 USART_FLAG_TXE：发送标志位，该位为SET，表示发送完毕，可以写入下一个数据
 
+### 函数实现
+
+```c
+void USART1_Init(u32 baudRate)
+{
+    //pa9-usart1_tx
+    //pa10-usart1_rx
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);	//开启USART1的时钟
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);	//开启GPIOA的时钟
+    // RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+
+    // GPIO设置  TX---复用推挽输出   RX------上拉输入/浮空输入
+    GPIO_InitTypeDef GPIO_InitStruct;
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
+    GPIO_InitStruct.GPIO_Pin = GPIO_Pin_9;
+    GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+    GPIO_InitStruct.GPIO_Pin = GPIO_Pin_10;
+    GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+    // USART设置
+    USART_InitTypeDef USART_InitStructure;
+	USART_InitStructure.USART_BaudRate = baudRate;										//串口波特率
+	USART_InitStructure.USART_WordLength = USART_WordLength_8b;						//字长为8位数据格式
+	USART_InitStructure.USART_StopBits = USART_StopBits_1;							//一个停止位
+	USART_InitStructure.USART_Parity = USART_Parity_No;								//无奇偶校验位
+	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None; //无硬件数据流控制
+	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;					//收发模式
+    USART_Init(USART1, &USART_InitStructure);
+    //开USART1接收中断
+    USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
+
+    // NVIC设置
+    NVIC_InitTypeDef NVIC_InitStruct;
+    NVIC_InitStruct.NVIC_IRQChannel = USART1_IRQn;
+    NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
+    NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 2;
+    NVIC_InitStruct.NVIC_IRQChannelSubPriority = 2;
+    NVIC_Init(&NVIC_InitStruct);
+
+    // 使能
+    USART_Cmd(USART1, ENABLE);
+
+}
+```
+
+
+
 ### 串口数据包
 
 ![image-20240227133355538](readme.assets/image-20240227133355538.png)![image-20240227133419007](readme.assets/image-20240227133419007.png)
